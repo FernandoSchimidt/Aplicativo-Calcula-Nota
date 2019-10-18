@@ -1,12 +1,13 @@
 package com.example.appunipteste;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         pimSeekBar.setProgress((int) (pim * 10));
     }
     //Atualiza o valor das portas NP@ para Pim 5.0, 7.5 e 10.0
+
     private void atualizaNp2Padrao(){
         np250EditText.setText(Calculadora.calculaNP2(np1, 5.0));
         np275EditText.setText(Calculadora.calculaNP2(np1, 7.5));
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         np2EditText.setText(Calculadora.calculaNP2(np1, pim));
     }
     //define o objeto ouvinte de mudança de texto do np1edittext
+
     private TextWatcher ouvinteNp1EditText = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -82,13 +85,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            try{
+           /* try{
                 np1 = Double.parseDouble(np1EditText.getText().toString());
             }catch (NumberFormatException e){
                 np1 = 0.0;
             }
             atualizaNp2Padrao();
-            atualizaNp2Personalizado();
+            atualizaNp2Personalizado();*/
         }
 
         @Override
@@ -101,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar.OnSeekBarChangeListener ouvintePimSeekBar = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            pim = (double) pimSeekBar.getProgress() / 10;
+          /*  pim = (double) pimSeekBar.getProgress() / 10;
             pimEditText.setText(String.format("%.1f", pim));
-            atualizaNp2Personalizado();
+            atualizaNp2Personalizado();*/
         }
 
         @Override
@@ -116,4 +119,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState){
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putDouble(NP1, np1);
+        outState.putDouble(PIM, pim);
+    }
 }
